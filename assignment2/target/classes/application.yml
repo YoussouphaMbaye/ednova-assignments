@@ -1,0 +1,8 @@
+spring:
+  application:
+    name:assignment2
+  pring:
+    data:
+      mongodb:
+        uri: mongodb://localhost:27017/springmongo
+
