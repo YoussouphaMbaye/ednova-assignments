@@ -30,6 +30,12 @@ public class Main {
         int res=maxProfit(tab);
         System.out.println("The max profit: "+res);
 
+        TreeNode root=new TreeNode(5,new TreeNode(2),new TreeNode(8));
+        System.out.println(isValideBST(root));
+
+        System.out.println(climbStairs(5));
+        System.out.println(binarySearch(new int []{1,3,4,5},3));
+
     }
 
     public static ListNode reverseList(ListNode head) {
@@ -114,5 +120,68 @@ public class Main {
       ListNode(int val) { this.val = val; }
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public static boolean isValide(TreeNode root,Integer min,Integer max){
+
+     if(root==null){
+         return true;
+     }
+
+     if(min!=null && root.val<=min)return false;
+     if(max!=null && root.val>=max)return false;
+     boolean left= isValide(root.left,min,root.val);
+     boolean right=isValide(root.right,root.val,max);
+      return left && right;
+    }
+
+    public static boolean isValideBST(TreeNode root){
+
+        return isValide(root,null,null);
+    }
+
+    public static int climbStairs(int n) {
+        if(n==1){
+            return 1;
+        }
+        int[]dp=new int[n+1];
+        dp[1]=1;
+        dp[2]=2;
+        for(int i=3;i<=n;i++){
+            dp[i]=dp[i-1]+dp[i-2];
+        }
+        return dp[n];
+    }
+
+    public static  int binarySearch(int[] nums, int target) {
+        int left=0;
+        int right=nums.length-1;
+        int middle=right/2;
+
+
+        while(left<=right){
+            middle=(right+left)/2;
+            if(nums[middle]==target) return middle;
+            if(target<nums[middle]) right=middle-1;
+            if(target>nums[middle]) left=middle+1;
+
+        }
+        return -1;
+
+    }
+
+
 
 }
